@@ -1,14 +1,18 @@
-# Hey {#if $page.query.get("name")} {$page.query.get("name")}{:else} there{/if} 👋🏼
+<script>
+    let first_name = 'there'
+    if( $page.query.get("name")) {
+        first_name = $page.query.get("name")
+    }
+</script>
+
+
+# Hey {first_name} 👋🏼
 
 Hope you are enjoying Data Council!
-
-{#if $page.query.get("name")}
 
 This report was generated just for you at {new Date().toLocaleString()}
 
 ## You live in <Value data={states.filter(d=>d.state===$page.params.state)} column=name/>
-
-{/if}
 
 ```states
 select 'CA' as state, 'united-states/CA' as link, 'California' as name, 39.5 as population, 163694 as area, 2.4 as density union all
