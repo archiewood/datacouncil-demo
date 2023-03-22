@@ -1,8 +1,6 @@
-<script>
-    import Name from '$lib/Name.svelte'
-</script>
 
-# Hey <Name/> 👋🏼
+
+# Hey there 👋🏼
 
 Hope you are enjoying Data Council!
 
