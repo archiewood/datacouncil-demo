@@ -1,12 +1,8 @@
 <script>
-    let first_name = 'there'
-    if( $page.query.get("name")) {
-        first_name = $page.query.get("name")
-    }
+    import Name from '$lib/Name.svelte'
 </script>
 
-
-# Hey {first_name} 👋🏼
+# Hey <Name/> 👋🏼
 
 Hope you are enjoying Data Council!
 
