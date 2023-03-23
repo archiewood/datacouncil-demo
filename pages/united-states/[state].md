@@ -1,10 +1,11 @@
+<script>
+    import Name from '$lib/Name.svelte';
+</script>
 
 
-# Hey there 👋🏼
+# Hey there <Name/> 👋🏼
 
 Hope you are enjoying Data Council!
-
-This report was generated just for you at {new Date().toLocaleString()}
 
 ## You live in <Value data={states.filter(d=>d.state===$page.params.state)} column=name/>
 
@@ -20,7 +21,7 @@ Here are some facts about <Value data={states.filter(d=>d.state===$page.params.s
 
 - The population is <Value data={states.filter(d=>d.state===$page.params.state)} column=population/>m
 
-See [data on more states](../united-states) or [other countries](../countries).
+See [data on more states](../united-states)
 
 ## Evidence
 
