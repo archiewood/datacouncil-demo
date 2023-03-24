@@ -1,5 +1,6 @@
 <script>
     import Name from '$lib/Name.svelte';
+    import Outro from '$lib/Outro.svelte';
     let country_gdp_data=gdp.filter(d => d.country_code === $page.params.country)
     let country = countries.filter(d => d.country_code === $page.params.country)
 </script>
@@ -58,10 +59,9 @@ ORDER BY gdp_ppp_current_usd0b desc
 
 A couple of facts about <Value data={country} />
 
-<BigValue data={country_gdp_data} value=gdp_per_capita_ppp_usd title="GDP per Capita, PPP ($)"/>
+<BigValue data={country_gdp_data} value=gdp_per_capita_ppp_usd title="GDP per capita ($)"/>
 
-<BigValue data={country_gdp_data} value=gdp_per_person_employed_usd title="GDP per person Employed, PPP ($)"/>
-
+<BigValue data={country_gdp_data} value=gdp_per_person_employed_usd title="GDP per person employed ($)"/>
 
 ## Economic Snapshot
 
@@ -94,14 +94,4 @@ Why not try [another country?](../)
 
 {/if}
 
-
-## What is Evidence?
-
-Evidence is a web framework for data analysts. It’s an open source, code-based alternative to drag-and-drop business intelligence tools.
-
-## Like what you see?
-
-- Sign up for our [Cloud Waitlist](https://du3tapwtcbi.typeform.com/to/kwp7ZD3q)
-- [Book a demo](https://calendly.com/d/dxf-2t4-fq8/chat-with-adam-archie?month=2023-03) to find out more
-- Check out the [source code](https://github.com/archiewood/datacouncil-demo) for this app.
-
+<Outro/>

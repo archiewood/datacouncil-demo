@@ -1,35 +1,105 @@
 <script>
     import Name from '$lib/Name.svelte';
+    import Outro from '$lib/Outro.svelte';
+    let state = states.filter(d => d.state_code === $page.params.state)
+    let state_gdp=bea_gdp.filter(d => d.state_code === $page.params.state)
+    let state_income_per_capita= bea_income_per_capita.filter(d => d.state_code === $page.params.state)
+    let state_employment=bea_total_employment.filter(d => d.state_code === $page.params.state)
+    
 </script>
-
 
 # Hey there <Name/> 👋🏼
 
-Hope you are enjoying Data Council!
+Hope you're enjoying Data Council!
 
-## You live in <Value data={states.filter(d=>d.state===$page.params.state)} column=name/>
+## You've come in from <Value data={state} column=state_name/>
 
 ```states
-select 'CA' as state, 'united-states/CA' as link, 'California' as name, 39.5 as population, 163694 as area, 2.4 as density union all
-select 'TX' as state, 'united-states/TX' as link, 'Texas' as name, 28.7 as population, 268596 as area, 1.1 as density union all
-select 'FL' as state, 'united-states/FL' as link, 'Florida' as name, 21.3 as population, 65758 as area, 3.2 as density union all
-select 'NY' as state, 'united-states/NY' as link, 'New York' as name, 19.5 as population, 54555 as area, 3.6 as density union all
-select 'PA' as state, 'united-states/PA' as link, 'Pennsylvania' as name, 12.8 as population, 46054 as area, 2.8 as density
+select 
+state_name,
+lower(state_code) as state_code,
+sum(value) as gdp_usd,
+rank() over (order by sum(value) desc) as gdp_rank
+from 'sources/states.csv'
+where measure = 'Gross domestic product (GDP)'
+
+group by state_name, state_code
+order by state_name
 ```
 
-Here are some facts about <Value data={states.filter(d=>d.state===$page.params.state)} column=name/>:
+```bea_gdp
+select 
+state_name,
+lower(state_code) as state_code,
+year,
+(year || '-01-01')::timestamp as date_yyyy,
+sum(value)* 1000000 as gdp_usd0b,
+-- abs change since previous year
+sum(value*1000000) - lag(sum(value*1000000)) over (partition by state_code order by year) as gdp_change_usd0b,
+-- abs change since 5 years ago
+sum(value*1000000) - lag(sum(value*1000000), 5) over (partition by state_code order by year) as gdp_change_5y_usd0b
 
-- The population is <Value data={states.filter(d=>d.state===$page.params.state)} column=population/>m
+from 'sources/states.csv'
+where measure = 'Gross domestic product (GDP)'
+group by state_name, state_code, year
+order by state_name, year desc
+```
 
-See [data on more states](../united-states)
+```bea_income_per_capita
+select
+state_name,
+lower(state_code) as state_code,
+year,
+sum(value) as income_per_capita_usd
+from 'sources/states.csv'
+where measure = 'Per capita personal income'
+group by state_name, state_code, year
+order by state_name, year desc
+```
 
-## Evidence
+```bea_total_employment
+select
+state_name,
+lower(state_code) as state_code,
+year,
+sum(value) as total_employment_num0
+from 'sources/states.csv'
+where measure = 'Total employment'
+group by state_name, state_code, year
+order by state_name, year desc
+```
 
-Evidence is a web framework for data analysts. It’s an open source, code-based alternative to drag-and-drop business intelligence tools.
 
-## Like what you see?
 
-- Sign up for our [Cloud Waitlist](https://du3tapwtcbi.typeform.com/to/kwp7ZD3q)
-- [Book a demo](https://calendly.com/d/dxf-2t4-fq8/chat-with-adam-archie?month=2023-03) to find out more
-- We made this app in an hour. Check out the [source code](https://github.com/archiewood/datacouncil-demo)
 
+Here are some facts about <Value data={state} value=state_name/>:
+
+<BigValue data={state_gdp} value=gdp_usd0b title="GDP"/>
+
+<BigValue data={state_income_per_capita} value=income_per_capita_usd title="Income per capita"/>
+
+<BigValue data={state_employment} value=total_employment_num0 title="Total employment"/>
+
+## Economic Snapshot
+
+
+<Value data={state} />'s economy was worth <Value data={state_gdp} column=gdp_usd0b/> in 2021, which was:
+
+- {#if state_gdp[0].gdp_change_usd0b > 0}an increase of <Value data={state_gdp} column=gdp_change_usd0b/> from {state_gdp[1].year}{:else}a decrease of <Value data={state_gdp} column=gdp_change_usd0b/> from {state_gdp[1].year}{/if}
+- {#if state_gdp[0].gdp_change_5y_usd0b > 0}an increase of <Value data={state_gdp} column=gdp_change_5y_usd0b/> from 2016{:else}a decrease of <Value data={state_gdp} column=gdp_change_5y_usd0b/> from 2016{/if}
+
+That puts it at <Value data={state} column=gdp_rank/>/{states.length} among US states.
+
+<BarChart 
+    data={state_gdp} 
+    x=date_yyyy 
+    y=gdp_usd0b
+    title="GDP for {state[0].state_name}"
+/>
+
+
+
+
+See [data on more states](/united-states)
+
+<Outro/>

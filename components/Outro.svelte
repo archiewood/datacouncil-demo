@@ -1,0 +1,11 @@
+<h2>What is Evidence?</h2>
+
+<p>Evidence is a web framework for data analysts. It’s an open source, code-based alternative to drag-and-drop business intelligence tools.</p>
+
+<h2>Like what you see?</h2>
+
+<ul>
+    <li>Sign up for our <a href="https://du3tapwtcbi.typeform.com/to/kwp7ZD3q">Cloud Waitlist</a>.</li>
+    <li><a href="https://calendly.com/d/dxf-2t4-fq8/chat-with-adam-archie?month=2023-03">Book a demo</a> to find out more.</li>
+    <li>Check out the <a href="https://github.com/archiewood/datacouncil-demo">source code</a> for this app.</li>
+</ul>

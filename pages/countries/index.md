@@ -1,3 +1,5 @@
+# World Economic Data
+
 ```countries
 SELECT
     country_name,
@@ -6,4 +8,6 @@ FROM 'sources/world.csv'
 group by country_name, country_code
 ```
 
-<DataTable data={countries} link=country_code rows=all showLinkCol/>
+Select a country to find out more.
+
+<DataTable data={countries} link=country_code rows=all/>

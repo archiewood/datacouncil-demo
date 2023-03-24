@@ -5,9 +5,7 @@
     const searchParams = browser && $page.url.searchParams
  
     if (searchParams && searchParams.get("name")) {
-        
         name = searchParams.get("name")
-        
         }
 </script>
 
