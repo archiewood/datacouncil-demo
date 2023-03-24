@@ -1,7 +1,7 @@
 <script>
     import Name from '$lib/Name.svelte';
-    let country_gdp_data=gdp.filter(d => d.country_code === $page.params.country)
-    let country = countries.filter(d => d.country_code === $page.params.country)
+    let country_gdp_data=gdp.filter(d => d.country_code === $page.params.country.toLowerCase())
+    let country = countries.filter(d => d.country_code === $page.params.country.toLowerCase())
 </script>
 
 
@@ -17,7 +17,7 @@ Hope you're enjoying Data Council!
 ```countries
 SELECT
     country_name,
-    country_code
+    lower(country_code)
 FROM 'sources/world.csv'
 group by country_name, country_code
 ```
@@ -73,7 +73,7 @@ A couple of facts about <Value data={country} />
 - {#if country_gdp_data[0].gdp_ppp_current_change_5y_usd0b > 0}an increase of <Value data={country_gdp_data} column=gdp_ppp_current_change_5y_usd0b/> from {country_gdp_data[5].year}{:else}a decrease of <Value data={country_gdp_data} column=gdp_ppp_current_change_5y_usd0b/> from {country_gdp_data[5].year}{/if}
 
 
-This puts it at <Value data={latest_year_gdp_rank.filter(d=>d.country_code===$page.params.country)} column=gdp_ppp_current_rank/>/{latest_year_gdp_rank.length} in the world for GDP per capita, PPP (for countries with data).
+This puts it at <Value data={latest_year_gdp_rank.filter(d=>d.country_code===$page.params.country)} column=gdp_ppp_current_rank/>/{latest_year_gdp_rank.length} in the world for GDP per capita, PPP (for.toLowerCase() countries with data).
 
 <BarChart
   data={country_gdp_data}
