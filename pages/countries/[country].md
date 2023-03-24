@@ -83,7 +83,7 @@ This puts it at <Value data={latest_year_gdp_rank.filter(d=>d.country_code===$pa
   subtitle= "(PPP, Current USD)"
 />
 
-Look at [another country?](/countries)
+Look at [another country?](../)
 
 
 <!-- <DataTable data={country_gdp_data} rows=all/> -->
@@ -92,7 +92,7 @@ Look at [another country?](/countries)
 
 Unfortunately the world bank does not publish data for <Value data={country} />.
 
-Why not try [another country?](/countries)
+Why not try [another country?](../)
 
 {/if}
 

@@ -1,10 +1,10 @@
 ```countries
 SELECT
     country_name,
-    country_code,
-    '/countries/' || country_code  as link
+    country_code
 FROM 'sources/world.csv'
 group by country_name, country_code
 ```
 
-<DataTable data={countries} link=link rows=all/>
+
+<DataTable data={countries} link=country_code rows=all showLinkCol/>
