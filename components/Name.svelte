@@ -1,14 +1,10 @@
 <script>
     let name=null
-    import {browser} from "$app/environment";
     import {page} from "$app/stores";
-    const searchParams = browser && $page.url.searchParams
- 
-    if (searchParams && searchParams.get("name")) {
-        
-        name = searchParams.get("name")
-        
-        }
+
+    if ($page.query.get("name")) {        
+        name = $page.query.get("name")
+    }
 </script>
 
 
