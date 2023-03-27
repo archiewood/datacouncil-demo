@@ -2,6 +2,8 @@
 
 <p>Evidence is a web framework for data analysts. It’s an open source, code-based alternative to drag-and-drop business intelligence tools.</p>
 
+<p>You can build reports <i>like this one</i> using markdown and SQL.
+
 <h2>Like what you see?</h2>
 
 <ul>
