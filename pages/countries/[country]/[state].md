@@ -100,6 +100,6 @@ That puts it at <Value data={state} column=gdp_rank/>/{states.length} among US s
 
 
 
-See [data on more states](/united-states)
+See [data on more states](/countries/usa/#State%20Level%20Data3)
 
 <Outro/>
